@@ -14,4 +14,10 @@
 
 package clira
 
+import (
+	"testing"
+)
+
 // TODO: TestLogin
+func TestLogin(t *testing.T) {
+}
