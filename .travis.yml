@@ -1,0 +1,12 @@
+language: go
+
+go:
+  - 1.6
+
+install:
+  - go get github.com/spf13/cobra
+  - go get github.com/spf13/viper
+  - go get github.com/ghodss/yaml
+  - go get github.com/andygrunwald/go-jira
+
+script: go test -v ./...
