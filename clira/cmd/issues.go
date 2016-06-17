@@ -15,21 +15,27 @@
 package cmd
 
 import (
-	"github.com/ifosch/clira"
 	"github.com/spf13/cobra"
 )
 
-// setupCmd represents the setup command
-var setupCmd = &cobra.Command{
-	Use:   "setup",
-	Short: "Sets up clira",
-	Long: `setup will create your configuration file,
- modifying it if it already exists, creating it otherwise.`,
-	Run: func(cmd *cobra.Command, args []string) {
-		clira.Setup()
-	},
+// issuesCmd represents the issues command
+var issuesCmd = &cobra.Command{
+	Use:   "issues",
+	Short: "Enables to work on issues",
+	Long:  `Currently this only allows you to search issues.`,
 }
 
 func init() {
-	RootCmd.AddCommand(setupCmd)
+	RootCmd.AddCommand(issuesCmd)
+
+	// Here you will define your flags and configuration settings.
+
+	// Cobra supports Persistent Flags which will work for this command
+	// and all subcommands, e.g.:
+	// issuesCmd.PersistentFlags().String("foo", "", "A help for foo")
+
+	// Cobra supports local flags which will only run when this command
+	// is called directly, e.g.:
+	// issuesCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
+
 }

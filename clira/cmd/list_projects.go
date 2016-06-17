@@ -1,4 +1,4 @@
-// Copyright © 2016 Ignasi Fosch
+// Copyright © 2016 NAME HERE <EMAIL ADDRESS>
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -19,27 +19,28 @@ import (
 	"github.com/spf13/cobra"
 )
 
-// listCmd represents the list command
-var listCmd = &cobra.Command{
+// listProjectsCmd represents the list_projects command
+var listProjectsCmd = &cobra.Command{
 	Use:   "list",
-	Short: "List tickets",
-	Long:  `list will get a list of tickets in a project.`,
+	Short: "Lists projects",
+	Long:  `Lists projects.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		clira.List()
+		clira.Login()
+		clira.ListProjects()
 	},
 }
 
 func init() {
-	RootCmd.AddCommand(listCmd)
+	projectsCmd.AddCommand(listProjectsCmd)
 
 	// Here you will define your flags and configuration settings.
 
 	// Cobra supports Persistent Flags which will work for this command
 	// and all subcommands, e.g.:
-	// listCmd.PersistentFlags().String("foo", "", "A help for foo")
+	// list_projectsCmd.PersistentFlags().String("foo", "", "A help for foo")
 
 	// Cobra supports local flags which will only run when this command
 	// is called directly, e.g.:
-	// listCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
+	// list_projectsCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 
 }

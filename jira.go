@@ -22,6 +22,32 @@ import (
 // JIRAClient is the interface to JIRA API.
 var JIRAClient *jira.Client
 
+// SearchIssues searches issues matching a JQL query.
+func SearchIssues(args []string) {
+	jql := ""
+	if len(args) >= 1 {
+		jql = args[0]
+	}
+	issues, _, err := JIRAClient.Issue.Search(jql)
+	if err != nil {
+		panic(fmt.Errorf("Error getting issues for '%v': %v\n", jql, err))
+	}
+	for _, issue := range issues {
+		fmt.Printf("%s %s\n", issue.Key, issue.Fields.Summary)
+	}
+}
+
+// ListProjects lists all projects from JIRA client.
+func ListProjects() {
+	projects, _, err := JIRAClient.Project.GetList()
+	if err != nil {
+		panic(fmt.Errorf("Error getting projects %v\n", err))
+	}
+	for _, project := range *projects {
+		fmt.Printf("%s: %s\n", project.Key, project.Name)
+	}
+}
+
 // Login initializes JIRA client.
 func Login() {
 	fmt.Println("Logging in")
