@@ -47,7 +47,7 @@ func init() {
 		&cfgFile,
 		"config",
 		"$HOME/.clira.yaml",
-		"config file (default is $HOME/.clira.yaml)")
+		"config file")
 }
 
 // initConfig reads in config file and ENV variables if set.
