@@ -28,7 +28,7 @@ func SearchIssues(args []string) {
 	if len(args) >= 1 {
 		jql = args[0]
 	}
-	issues, _, err := JIRAClient.Issue.Search(jql)
+	issues, _, err := JIRAClient.Issue.Search(jql, nil)
 	if err != nil {
 		panic(fmt.Errorf("Error getting issues for '%v': %v\n", jql, err))
 	}
