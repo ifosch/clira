@@ -26,7 +26,9 @@ var searchIssuesCmd = &cobra.Command{
 	Long:  `Searches issues using JQL.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		clira.Login()
-		clira.SearchIssues(args)
+		comments, _ := cmd.Flags().GetBool("comments")
+		pattern, _ := cmd.Flags().GetString("pattern")
+		clira.SearchIssues(args, comments, pattern)
 	},
 }
 
@@ -42,5 +44,6 @@ func init() {
 	// Cobra supports local flags which will only run when this command
 	// is called directly, e.g.:
 	// search_issuesCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
-
+	searchIssuesCmd.Flags().BoolP("comments", "c", false, "Show comments")
+	searchIssuesCmd.Flags().StringP("pattern", "", "", "Regular expression to hook comments")
 }

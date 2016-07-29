@@ -18,6 +18,10 @@ import (
 	"testing"
 )
 
+// TODO: TestSearchIssues
+func TestSearchIssues(t *testing.T) {
+}
+
 // TODO: TestListProjects
 func TestListProjects(t *testing.T) {
 }
