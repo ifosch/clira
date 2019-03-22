@@ -1,0 +1,75 @@
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: jira-home
+  labels:
+    app: jira
+spec:
+  storageClassName: manual
+  accessModes:
+  - ReadWriteOnce
+  capacity:
+    storage: 50Gi
+  hostPath:
+    path: /var/lib/minikube/jira-home
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: jira-home
+  labels:
+    app: jira
+spec:
+  storageClassName: manual
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: jira
+  name: jira
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: jira
+  template:
+    metadata:
+      labels:
+        app: jira
+      name: jira
+    spec:
+      containers:
+        - name: jira
+          image: "gcr.io/hightowerlabs/jira:7.3.6-standalone"
+          resources:
+            requests:
+              cpu: "2"
+              memory: "2G"
+          volumeMounts:
+            - name: "jira-home"
+              mountPath: /opt/jira-home
+      volumes:
+        - name: "jira-home"
+          persistentVolumeClaim:
+            claimName: jira-home
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: jira
+  name: jira
+spec:
+  ports:
+    - port: 8080
+      targetPort: 8080
+  selector:
+    app: jira
+  type: NodePort
