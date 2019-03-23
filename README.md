@@ -29,7 +29,7 @@ minikube start
 
 Once minikube has enough resources:
 ```bash
-kubectl apply -f manifests/loca-jira.yaml
+kubectl apply -f manifests/local-jira.yaml
 ```
 
 Wait until the pod is finally running, and then you'll get your JIRA to be setup:
