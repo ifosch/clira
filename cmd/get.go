@@ -12,44 +12,32 @@ import (
 // getCmd represents the get command
 var getCmd = &cobra.Command{
 	Use:   "get",
-	Short: "Retrieve a list of issues",
+	Short: "Get issue details",
 	Long: `
-This subcommand allows getting issues.`,
+This subcommand allows getting an issue details.
+
+example: clira get DVX-567
+`,
 	Run: func(cmd *cobra.Command, args []string) {
 		jiraClient, err := clira.GetClient()
 		if err != nil {
 			log.Fatal(err)
 		}
-		results, _, err := jiraClient.Issue.Search("", nil)
+		issue, _, err := jiraClient.Issue.Get(args[0], nil)
+
+		fmt.Printf("%s:    %+v\n", issue.Key, issue.Fields.Summary)
+		fmt.Printf("Type:     %s\n", issue.Fields.Type.Name)
+		fmt.Printf("Priority: %s\n", issue.Fields.Priority.Name)
+		fmt.Printf("Reporter: %s\n", issue.Fields.Reporter.Name)
+		fmt.Printf("Assignee: %s\n", issue.Fields.Assignee.Name)
+		fmt.Printf("Status:   %s\n", issue.Fields.Status.Name)
+		fmt.Printf("\nDescription: %s\n", issue.Fields.Description)
 		if err != nil {
 			log.Fatal(err)
-		}
-		fmt.Printf(
-			"KEY\tTYPE\tSTATUS\tDESCRIPTION\n",
-		)
-		for _, result := range results {
-			fmt.Printf(
-				"%s\t%s\t%v\t%s\n",
-				result.Key,
-				result.Fields.Type.Name,
-				result.Fields.Status.Name,
-				result.Fields.Summary,
-			)
 		}
 	},
 }
 
 func init() {
 	RootCmd.AddCommand(getCmd)
-
-	// Here you will define your flags and configuration settings.
-
-	// Cobra supports Persistent Flags which will work for this command
-	// and all subcommands, e.g.:
-	// getCmd.PersistentFlags().String("foo", "", "A help for foo")
-
-	// Cobra supports local flags which will only run when this command
-	// is called directly, e.g.:
-	// getCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
-
 }
