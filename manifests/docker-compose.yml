@@ -1,0 +1,10 @@
+version: "3"
+services:
+  jira:
+    image: gcr.io/hightowerlabs/jira:7.3.6-standalone
+    volumes:
+      - ~/jira/data:/opt/jira-home
+    expose:
+      - "8080"
+    ports:
+      - "8080:8080"
