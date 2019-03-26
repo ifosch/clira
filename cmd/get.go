@@ -24,7 +24,9 @@ example: clira get DVX-567
 			log.Fatal(err)
 		}
 		issue, _, err := jiraClient.Issue.Get(args[0], nil)
-
+		if err != nil {
+			log.Fatal(err)
+		}
 		fmt.Printf("%s:    %+v\n", issue.Key, issue.Fields.Summary)
 		fmt.Printf("Type:     %s\n", issue.Fields.Type.Name)
 		fmt.Printf("Priority: %s\n", issue.Fields.Priority.Name)
@@ -32,9 +34,6 @@ example: clira get DVX-567
 		fmt.Printf("Assignee: %s\n", issue.Fields.Assignee.Name)
 		fmt.Printf("Status:   %s\n", issue.Fields.Status.Name)
 		fmt.Printf("\nDescription: %s\n", issue.Fields.Description)
-		if err != nil {
-			log.Fatal(err)
-		}
 	},
 }
 
